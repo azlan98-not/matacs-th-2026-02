@@ -2,7 +2,11 @@
 
 These are the prompts exactly as the system would send them. There are two AI
 calls in the design, and both are read-only: the model extracts and flags, it
-never scores. All scoring is deterministic code (see `prototype/score.py`).
+never scores. Between extraction and scoring, plain code applies the mandatory eligibility
+gates and the manipulation flag raised by Prompt 2. During scoring, missing
+weighted-criterion data scores zero for that criterion and adds a reviewer
+warning to the proposal's ranking entry — it is never invented or treated as
+confirmed. All scoring is deterministic code (see `prototype/score.py`).
 
 Placeholders in `{braces}` are filled by code at run time. `{criteria_json}` is
 the admin-configured criteria for the selected category (names, types, weights,
